@@ -14,10 +14,12 @@ struct PersistenceController {
     static let preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for _ in 0..<10 {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-        }
+        //for i in 0..<2 {
+        let newItem = Item(context: viewContext)
+        newItem.id = 1
+        newItem.parameter = "Revision"
+        newItem.stringvalue = "2"
+        //}
         do {
             try viewContext.save()
         } catch {
@@ -51,6 +53,9 @@ struct PersistenceController {
                  */
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
+//            if let url = storeDescription.url {
+//                print("Core Data SQLite file location: \(url.path)")
+//            }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
