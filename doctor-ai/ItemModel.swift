@@ -10,9 +10,10 @@ import CoreData
 
 class ItemModel: ObservableObject {
     @Published var items: [Item] = []
-    @Published var revision: String = "2"
+    @Published var revision: String = "0"
     @Published var lastbatch: String = "0"
     @Published var totalbatch: String = "0"
+    @Published var demomode: String = "0"
     
     func initRevision() {
         let context = PersistenceController.shared.container.viewContext
@@ -53,6 +54,19 @@ class ItemModel: ObservableObject {
         }
     }
     
+    func initDemoMode() {
+        let context = PersistenceController.shared.container.viewContext
+        let item = Item(context: context)
+        item.id = 4
+        item.parameter = "Demo Mode"
+        item.stringvalue = "0"
+        do {
+            try context.save()
+        } catch {
+            print("Failed to save item: \(error.localizedDescription)")
+        }
+    }
+    
     func fetchItem() {
         let context = PersistenceController.shared.container.viewContext
         let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
@@ -77,9 +91,6 @@ class ItemModel: ObservableObject {
             let items = try context.fetch(fetchRequest)
             if let parameterItem = items.first {
                 self.revision = parameterItem.stringvalue ?? "2"
-            } else {
-                initRevision()
-                print("Init Revision.")
             }
         } catch {
             print("Failed to fetch item: \(error.localizedDescription)")
@@ -122,6 +133,21 @@ class ItemModel: ObservableObject {
         }
     }
     
+    func fetchDemoMode() {
+        let context = PersistenceController.shared.container.viewContext
+        let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %i", 4)
+        
+        do {
+            let items = try context.fetch(fetchRequest)
+            if let parameterItem = items.first {
+                self.demomode = parameterItem.stringvalue ?? "0"
+            }
+        } catch {
+            print("Failed to fetch item: \(error.localizedDescription)")
+        }
+    }
+    
     func updateItem(withId id: Int, newValue: Int) {
         let context = PersistenceController.shared.container.viewContext
         let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
@@ -130,7 +156,18 @@ class ItemModel: ObservableObject {
         do {
             let items = try context.fetch(fetchRequest)
             if let itemToUpdate = items.first {
-                print("new batch")
+                switch id {
+                case 1:
+                    print("New Revision")
+                case 2:
+                    print("New Batch")
+                case 3:
+                    print("New Batch")
+                case 4:
+                    print("Init Demo")
+                default:
+                    print("Init")
+                }
                 itemToUpdate.stringvalue = newValue.description
                 try context.save()
             } else {

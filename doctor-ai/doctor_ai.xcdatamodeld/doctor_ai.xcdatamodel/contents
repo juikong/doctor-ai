@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23173.10" systemVersion="24A5279h" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23173.10" systemVersion="24A5298h" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Demomatch" representedClassName="Demomatch" syncable="YES">
+        <attribute name="batch" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="main" optional="YES" attributeType="String"/>
+        <attribute name="result" optional="YES" attributeType="String"/>
+        <attribute name="sub" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="Item" representedClassName="Item" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="parameter" optional="YES" attributeType="String"/>
         <attribute name="stringvalue" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Testbatch" representedClassName="Testbatch" syncable="YES">
+        <attribute name="batch" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="Testmatch" representedClassName="Testmatch" syncable="YES">
         <attribute name="batch" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -15,8 +27,10 @@
     <entity name="Testname" representedClassName="Testname" syncable="YES">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="main" optional="YES" attributeType="String"/>
+        <attribute name="max" optional="YES" attributeType="String"/>
         <attribute name="revision" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sub" optional="YES" attributeType="String"/>
+        <attribute name="unit" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Testresult" representedClassName="Testresult" syncable="YES">
         <attribute name="batch" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>

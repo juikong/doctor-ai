@@ -1,20 +1,18 @@
 //
-//  ReportView.swift
+//  DemoReportView.swift
 //  doctor-ai
 //
-//  Created by Juiko Ong on 06/07/2024.
+//  Created by Juiko Ong on 26/07/2024.
 //
 
 import SwiftUI
 
-struct ReportView: View {
+struct DemoReportView: View {
     @State private var haematologyExpanded: Bool = true
     @State private var biochemistryExpanded: Bool = true
     @State private var serologyExpanded: Bool = true
     @State private var microbiologyExpanded: Bool = true
-    @State private var othersExpanded: Bool = true
-    @StateObject private var itemModel = ItemModel()
-    @StateObject private var testmatchModel = TestmatchModel()
+    @StateObject private var demomatchModel = DemomatchModel()
     @State private var navigationPath = NavigationPath()
     @State private var isShowingHistoryReport = false
     
@@ -27,7 +25,7 @@ struct ReportView: View {
                 Spacer()
                 List {
                     DisclosureGroup("Haematology", isExpanded: $haematologyExpanded) {
-                        ForEach(testmatchModel.haematologyTestmatch, id: \.self) {
+                        ForEach(demomatchModel.haematologyDemomatch, id: \.self) {
                             haematology in
                             HStack {
                                 Text(haematology.sub ?? "No name")
@@ -44,7 +42,7 @@ struct ReportView: View {
                         }
                     }
                     DisclosureGroup("Biochemistry", isExpanded: $biochemistryExpanded) {
-                        ForEach(testmatchModel.biochemistryTestmatch, id: \.self) {
+                        ForEach(demomatchModel.biochemistryDemomatch, id: \.self) {
                             biochemistry in
                             HStack {
                                 Text(biochemistry.sub ?? "No name")
@@ -61,7 +59,7 @@ struct ReportView: View {
                         }
                     }
                     DisclosureGroup("Serology", isExpanded: $serologyExpanded) {
-                        ForEach(testmatchModel.serologyTestmatch, id: \.self) {
+                        ForEach(demomatchModel.serologyDemomatch, id: \.self) {
                             serology in
                             HStack {
                                 Text(serology.sub ?? "No name")
@@ -78,7 +76,7 @@ struct ReportView: View {
                         }
                     }
                     DisclosureGroup("Microbiology", isExpanded: $microbiologyExpanded) {
-                        ForEach(testmatchModel.microbiologyTestmatch, id: \.self) {
+                        ForEach(demomatchModel.microbiologyDemomatch, id: \.self) {
                             microbiology in
                             HStack {
                                 Text(microbiology.sub ?? "No name")
@@ -91,23 +89,6 @@ struct ReportView: View {
                             .listRowBackground(Color.white)
                             .onTapGesture {
                                 navigationPath.append(Matched(main: microbiology.main ?? "No category", sub: microbiology.sub ?? "No name", result: microbiology.result ?? "No result"))
-                            }
-                        }
-                    }
-                    DisclosureGroup("Others", isExpanded: $othersExpanded) {
-                        ForEach(testmatchModel.othersTestmatch, id: \.self) {
-                            other in
-                            HStack {
-                                Text(other.sub ?? "No name")
-                                    .font(.subheadline)
-                                Spacer()
-                                Text(other.result ?? "No result")
-                                    .font(.title3)
-                            }
-                            .contentShape(Rectangle())
-                            .listRowBackground(Color.white)
-                            .onTapGesture {
-                                navigationPath.append(Matched(main: other.main ?? "No category", sub: other.sub ?? "No name", result: other.result ?? "No result"))
                             }
                         }
                     }
@@ -136,24 +117,22 @@ struct ReportView: View {
 #endif
             }
             .onAppear {
-                itemModel.fetchLastBatch()
-                testmatchModel.fetchTestmatchMainBatch(withMain: "Haematology", Batch: Int16(itemModel.lastbatch) ?? 1)
-                testmatchModel.fetchTestmatchMainBatch(withMain: "Biochemistry", Batch: Int16(itemModel.lastbatch) ?? 1)
-                testmatchModel.fetchTestmatchMainBatch(withMain: "Serology", Batch: Int16(itemModel.lastbatch) ?? 1)
-                testmatchModel.fetchTestmatchMainBatch(withMain: "Microbiology", Batch: Int16(itemModel.lastbatch) ?? 1)
-                testmatchModel.fetchTestmatchMainBatch(withMain: "Others", Batch: Int16(itemModel.lastbatch) ?? 1)
+                demomatchModel.fetchDemomatchMainBatch(withMain: "Haematology", Batch: 3)
+                demomatchModel.fetchDemomatchMainBatch(withMain: "Biochemistry", Batch: 3)
+                demomatchModel.fetchDemomatchMainBatch(withMain: "Serology", Batch: 3)
+                demomatchModel.fetchDemomatchMainBatch(withMain: "Microbiology", Batch: 3)
             }
             .navigationDestination(for: Matched.self) { matched in
-                ReportDetailView(sub: matched.sub)
+                DemoReportDetailView(sub: matched.sub)
             }
             .navigationDestination(isPresented: $isShowingHistoryReport) {
-                HistoryView()
+                DemoHistoryView()
             }
         }
         .tabViewStyle(DefaultTabViewStyle())
     }
 }
-    
+
 #Preview {
-    ReportView()
+    DemoReportView()
 }

@@ -7,21 +7,17 @@
 
 import SwiftUI
 
-struct OnboardingItemView: View {
-    var imageName: String
-    var title: String
-    var description: String
-    
+struct OnboardingIntroView: View {
     var body: some View {
         VStack {
-            Image(systemName: imageName)
+            Image(systemName: "medical.thermometer")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 150, height: 150)
-            Text(title)
+            Text("Title 1")
                 .font(.title)
                 .padding(.top, 10)
-            Text(description)
+            Text("Description 1.")
                 .font(.body)
                 .padding(.top, 2)
                 .multilineTextAlignment(.center)
@@ -31,5 +27,5 @@ struct OnboardingItemView: View {
 }
 
 #Preview {
-    OnboardingItemView(imageName: "medical.thermometer", title: "Title", description: "Description")
+    OnboardingIntroView()
 }

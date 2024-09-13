@@ -1,28 +1,22 @@
 //
-//  ContentView.swift
+//  DemoContentView.swift
 //  doctor-ai
 //
-//  Created by Juiko Ong on 06/07/2024.
+//  Created by Juiko Ong on 26/07/2024.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct DemoContentView: View {
     var body: some View {
         TabView {
-            HomeView()
-            .tabItem {
-                Label("Import",
-                      systemImage: "square.and.arrow.down.on.square")
-            }
-
-            ReportView()
+            DemoReportView()
             .tabItem {
                 Label("Reports",
                       systemImage: "doc.text")
             }
             
-            ProfileView()
+            DemoProfileView()
             .tabItem {
                 Label("Profile",
                       systemImage: "person.crop.circle")
@@ -32,5 +26,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    DemoContentView()
 }

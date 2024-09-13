@@ -1,5 +1,5 @@
 //
-//  Testmatch+CoreDataProperties.swift
+//  Demomatch+CoreDataProperties.swift
 //  doctor-ai
 //
 //  Created by Juiko Ong on 29/07/2024.
@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 
-extension Testmatch {
+extension Demomatch {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Testmatch> {
-        return NSFetchRequest<Testmatch>(entityName: "Testmatch")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Demomatch> {
+        return NSFetchRequest<Demomatch>(entityName: "Demomatch")
     }
 
     @NSManaged public var batch: Int16
@@ -24,6 +24,6 @@ extension Testmatch {
 
 }
 
-extension Testmatch : Identifiable {
+extension Demomatch : Identifiable {
 
 }

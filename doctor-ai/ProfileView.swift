@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ProfileView: View {
-    //@State private var topExpanded: Bool = true
     @State private var plusUser: Bool = false
     @State private var navigationPath = NavigationPath()
     
@@ -31,7 +30,7 @@ struct ProfileView: View {
                     .contentShape(Rectangle())
                     //.listRowBackground(Color.white)
                     .onTapGesture {
-                        navigationPath.append(Profile(linkname: "My Plan"))
+                        navigationPath.append(Profile(linkname: "My Plan", detail: "Doctor AI Pro"))
                     }
                     HStack {
                         Text("My Usages")
@@ -44,22 +43,20 @@ struct ProfileView: View {
                     .contentShape(Rectangle())
                     //.listRowBackground(Color.white)
                     .onTapGesture {
-                        navigationPath.append(Profile(linkname: "My Usages"))
+                        navigationPath.append(Profile(linkname: "My Usages", detail: "15 Credits remaining"))
                     }
-                    if (plusUser) {
-                        HStack {
-                            Text("Add-on Medical Report Name")
-                                .font(.body)
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(Color(.systemGray))
-                                .font(.system(size: 20))
-                        }
-                        .contentShape(Rectangle())
-                        //.listRowBackground(Color.white)
-                        .onTapGesture {
-                            navigationPath.append(Profile(linkname: "Add-on Medical Report Name"))
-                        }
+                    HStack {
+                        Text("Add-on Medical Report Name")
+                            .font(.body)
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(Color(.systemGray))
+                            .font(.system(size: 20))
+                    }
+                    .contentShape(Rectangle())
+                    //.listRowBackground(Color.white)
+                    .onTapGesture {
+                        navigationPath.append(Profile(linkname: "Add-on Medical Report Name", detail: ""))
                     }
                 }
 #if os(iOS)
@@ -69,7 +66,16 @@ struct ProfileView: View {
 #endif
             }
             .navigationDestination(for: Profile.self) { profile in
-                ProfileDetailView(profile: profile)
+                switch profile.linkname {
+                case "My Plan":
+                    ProfileDetailOneView(profile: profile)
+                case "My Usages":
+                    ProfileDetailTwoView(profile: profile)
+                case "Add-on Medical Report Name":
+                    ProfileDetailThreeView(profile: profile)
+                default:
+                    ProfileDetailOneView(profile: profile)
+                }
             }
         }
         .tabViewStyle(DefaultTabViewStyle())

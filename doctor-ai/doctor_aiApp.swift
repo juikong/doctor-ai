@@ -13,8 +13,8 @@ struct doctor_aiApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-            //OnboardingView()
+            //ContentView()
+            OnboardingView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

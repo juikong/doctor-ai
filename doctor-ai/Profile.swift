@@ -11,4 +11,5 @@ import SwiftData
 struct Profile: Codable, Identifiable, Hashable {
     var id = UUID()
     var linkname: String
+    var detail: String
 }
