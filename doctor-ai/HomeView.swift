@@ -68,7 +68,7 @@ struct HomeView: View {
 }
 
 func recognizeTextUsingAzure(url: URL, completion: @escaping ([String]) -> Void) {
-    let endpoint = "https://medicalreportextraction.cognitiveservices.azure.com"
+    let endpoint = "https://dummy.cognitiveservices.azure.com"
     let apiVersion = "2023-07-31"
     let apiKey = "66815bb015484fb39ed60ee6db6ef6eb"
 

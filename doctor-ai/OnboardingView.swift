@@ -8,7 +8,16 @@
 import SwiftUI
 import Supabase
 
+let supabase = SupabaseClient(
+    supabaseURL: URL(string: "https://dummy.supabase.co")!,
+    supabaseKey: "dummy-key"
+)
+
 struct OnboardingView: View {
+    private struct UserProStatus: Decodable {
+        let pro: Bool
+    }
+
     @State private var selectedTab = 0
     @State private var navigateToMainContent = false
     @State private var navigateToDemoContent = false
@@ -536,6 +545,28 @@ struct OnboardingView: View {
                     }
                 }
             }
+            .task {
+                await checkProStatus()
+            }
+        }
+    }
+
+    @MainActor
+    private func checkProStatus() async {
+        do {
+            let users: [UserProStatus] = try await supabase
+                .from("user")
+                .select("pro")
+                .eq("user", value: "dummy-user")
+                .limit(1)
+                .execute()
+                .value
+
+            if users.first?.pro == true {
+                navigateToMainContent = true
+            }
+        } catch {
+            print("Unable to check pro status: \(error.localizedDescription)")
         }
     }
 }
@@ -543,4 +574,3 @@ struct OnboardingView: View {
 #Preview {
     OnboardingView()
 }
-
